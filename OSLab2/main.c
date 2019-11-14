@@ -463,7 +463,7 @@ int  getFATValue(FILE* fat12 , int clus) {
 	}
 }
 
-//TODO 处理带路径的指令
+//处理带路径的指令
 int getTarget(char* order, char* path, char* fullpath){
     int isCount = 0;
     int isFst = 0;
