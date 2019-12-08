@@ -40,10 +40,16 @@ PUBLIC void init_keyboard();
 /* tty.c */
 PUBLIC void task_tty();
 PUBLIC void in_process(TTY* p_tty, u32 key);
+PUBLIC void put_key(TTY* p_tty, u32 key);
 
 /* console.c */
 PUBLIC void out_char(CONSOLE* p_con, char ch);
 PUBLIC void scroll_screen(CONSOLE* p_con, int direction);
+//my_add
+PUBLIC void refresh_screen(CONSOLE* p_con);    //清空屏幕
+PUBLIC void search(CONSOLE* p_con, char * p, int length);
+PUBLIC void stop_search(TTY* p_tty, int length);
+//end
 
 /* 以下是系统调用相关 */
 

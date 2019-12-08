@@ -8,7 +8,6 @@
 #ifndef _ORANGES_CONSOLE_H_
 #define _ORANGES_CONSOLE_H_
 
-
 /* CONSOLE */
 typedef struct s_console
 {
@@ -16,6 +15,10 @@ typedef struct s_console
 	unsigned int	original_addr;		/* 当前控制台对应显存位置 */
 	unsigned int	v_mem_limit;		/* 当前控制台占的显存大小 */
 	unsigned int	cursor;			/* 当前光标位置 */
+	//my_add
+	unsigned int	is_search;			/* 当前是否是查找状态 */
+	//end
+
 }CONSOLE;
 
 #define SCR_UP	1	/* scroll forward */
@@ -25,6 +28,8 @@ typedef struct s_console
 #define SCREEN_WIDTH		80
 
 #define DEFAULT_CHAR_COLOR	0x07	/* 0000 0111 黑底白字 */
-
+//my_add 搜索时颜色
+#define SEARCH_CHAR_COLOR	0x01	/* 0000 0001 黑底蓝字 */
+//end
 
 #endif /* _ORANGES_CONSOLE_H_ */

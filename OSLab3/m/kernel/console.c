@@ -82,7 +82,6 @@ PUBLIC void out_char(CONSOLE* p_con, char ch)
 			*p_vmem++ = '\n';
 			*p_vmem++ = 0x00;
 			//end
-
 			p_con->cursor = p_con->original_addr + SCREEN_WIDTH * 
 				((p_con->cursor - p_con->original_addr) /
 				 SCREEN_WIDTH + 1);
@@ -254,7 +253,6 @@ PUBLIC void scroll_screen(CONSOLE* p_con, int direction)
 
 PUBLIC void refresh_screen(CONSOLE* p_con){
 	u8* p_vmem = (u8*)(V_MEM_BASE + p_con->cursor * 2);
-	//光标在起始位置之前
 	//flush(p_con);
 	while (p_con->cursor > p_con -> original_addr) {
 		p_con->cursor--;

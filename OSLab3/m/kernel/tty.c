@@ -43,12 +43,13 @@ PUBLIC void task_tty()
 	}
 	select_console(0);
 
-	p_tty->p_console->is_search = 0;//初始化
+	//my_add 初始化
+	p_tty->p_console->is_search = 0;
 	char s_content[100] = {0};
 	s_length = 0;
-
-	//int start_time = get_ticks();
 	int index=0;
+	//end
+
 	while (1) {
 		for (p_tty=TTY_FIRST;p_tty<TTY_END;p_tty++) {
 			//初始化屏幕
@@ -64,16 +65,17 @@ PUBLIC void task_tty()
 		}
 	}
 }
-//定时刷新屏幕
+//my_add 定时刷新屏幕
 void TestA()
 {
 	while (1) {
 		if(p_con->is_search==0){
 			refresh_screen(p_con);
 		}
-		milli_delay(120000);
+		milli_delay(100000);
 	}
 }
+//end
 
 /*======================================================================*
 			   init_tty
@@ -99,7 +101,7 @@ PUBLIC void in_process(TTY* p_tty, u32 key)
                 p_tty->p_console->is_search = 1;
             }else{
                 p_tty->p_console->is_search = 0;
-				//结束搜索
+				//结束搜索，删除搜索内容，还原颜色
                 stop_search(p_tty, s_length);
 				char s_content[100] = {0};
 				s_length = 0;
