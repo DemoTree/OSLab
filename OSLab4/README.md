@@ -1,23 +1,6 @@
 # README
 
-在Orange's实现源码chapter7 m基础上修改而成
-
-#####源码已实现：
-
-1. 可以输入并显示a-z，A-Z，0-9
-2. shift组合键及大写锁定两种方式的大小写切换
-3. 回车键换行
-4. 退格键删除输入内容
-5. 支持空格键
-6. 光标闪烁，随输入字符的位置变化
-
-##### 待实现：
-
-1. 支持TAB键
-2. 每隔20s左右清空屏幕
-3. Esc查找
-4. 回车换行后的删除
-5. （附加功能）control+z组合键撤回上一个输入的字符
+在Orange's实现源码chapter6 r基础上修改而成，在 ubuntu 36 位下运行
 
 ### 修改内容
 
@@ -29,80 +12,69 @@
 
    CC后添加 `-w` 忽略 gcc 编译 warning 警告
 
-2. console.h
+2. proc.h
 
-   添加搜索时颜色`SEARCH_CHAR_COLOR`
+   1. 定义信号量结构体 semaphore
 
-   结构体s_console中添加 is_search 判断是否是搜索状态
+      ```c
+      typedef struct semaphore{
+      	int value;//信号量值
+      	PROCESS *list[20];//等待队列
+      }SEMAPHORE;
+      ```
 
-3. proto.h
+   2. 结构体 s_proc 中添加数据sleep_tick 和 blocked用于控制睡眠
 
-   添加 put_key(), refresh_screen(), search(), stop_search()方法的引用申明
+   3. 为 TestD()，TestE()，TestF() 添加相关代码
 
-4. console.c
+   4. 添加 ifndef 避免重定义
 
-   添加 search()方法用于查找
+3. const.h
 
-   添加 stop_search()方法用于查找结束后恢复原始状态
+   1. 共定义了 6 个系统调用，修改 NR_SYS_CALL为 6
 
-   修改 out_char()实现让查找关键字显示为蓝色，TAB 的输入和 TAB 、回车的整体删除
+4. proto.h
 
-   添加refresn_screen()方法用于刷新屏幕
+   1. 添加对 proc.h 的引用
+   2. 添加 main.c， proc.c，syscall.asm 新定义的方法调用
 
-5. tyy.c
+5. global.c
 
-   修改 task_tty()实现屏幕初始化
+   1. 为TestD()，TestE()，TestF() 添加相关代码
+   2. sys_call_table 中添加 sys_sleep, sys_my_disp, sys_P, sys_V, sys_my_disp_int
 
-   修改 in_process()实现查找模式的键盘动作识别
+6. syscall.asm
 
-   将 put_key()由 PRIVATE 改为 PUBLIC 供 console.c 调用
+   1. 增加 sleep，my_disp， P, V, my_disp_int
+   2. 增加 my_disp 方法实现颜色输出
 
-   将 权限最高的TestA放到此文件中实现屏幕刷新
+7. kernal.asm
 
-6. main.c
+   1. 把传入参数压栈
 
-   将 TestA 注释掉
+8. proc.c
+
+   1. 修改 schedule() 方法
+   2. 添加 sys_sleep()
+   3. 添加 sys_my_disp() 方法实现彩色打印
+   4. 添加 sys_P()方法
+   5. 添加 sys_V()方法
+   6. 添加 sys_my_disp_int() 方法实现打印数字
+
+9. main.c 主要功能实现
+
+  1. 进行待用数据定义
+  2. 在 kernel_main() 进行了各项数据的初始化
+  3. TestA(),TestB(),TestC()为读者进程，TestD(),TestE()为写者进程，都写了两个分别为读者优先和写者优先，运行时注释掉一个，TestF 为普通进程实现
+
+### 运行截图
+
+1. 读者优先，最多 3 个读者同时读
+
+   ![读者优先](README.assets/读者优先.png)
+
+2. 写者优先，最多 2 个读者同时读
+
+   ![写者优先](README.assets/写者优先.png)
 
    
-
-   
-
-   
-
-   
-
-   
-
-
-
-
-
-
-
-
-
-2017:
-
-1. console.c
-2. tty.c
-3. seek.c
-
-2018:
-
-1. console.c 搜索
-2. tty.c 清空屏幕
-
-hxh: 7c
-
-1. kernel/tty.c 主要功能
-2. kernel/keyboard.c 大小写切换 输入组合键
-3. include/proc.h 调整任务数量
-4. kernel/global.c 调整任务切换
-
-wrh:
-
-1. console.c tab 查找 
-
-Lab3:
-
-1. concole.c tty.c main.c 

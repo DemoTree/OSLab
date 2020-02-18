@@ -45,9 +45,9 @@
 
    添加 stop_search()方法用于查找结束后恢复原始状态
 
-   修改 out_char()实现让查找关键字显示为蓝色，TAB 的输入和 TAB 、回车的整体删除
+   修改 out_char()实现让查找关键字显示为蓝色，TAB 的输入和 TAB、回车的整体删除
 
-   添加refresn_screen()方法用于刷新屏幕
+   添加refresh_screen()方法用于刷新屏幕
 
 5. tyy.c
 
@@ -57,52 +57,9 @@
 
    将 put_key()由 PRIVATE 改为 PUBLIC 供 console.c 调用
 
-   将 权限最高的TestA放到此文件中实现屏幕刷新
+   将TestA()放到此文件中实现屏幕刷新
 
 6. main.c
 
    将 TestA 注释掉
 
-   
-
-   
-
-   
-
-   
-
-   
-
-
-
-
-
-
-
-
-
-2017:
-
-1. console.c
-2. tty.c
-3. seek.c
-
-2018:
-
-1. console.c 搜索
-2. tty.c 清空屏幕
-
-hxh: 7c
-
-1. kernel/tty.c 主要功能
-2. kernel/keyboard.c 大小写切换 输入组合键
-3. include/proc.h 调整任务数量
-4. kernel/global.c 调整任务切换
-
-wrh:
-
-1. console.c tab 查找 
-
-Lab3:
-
-1. concole.c tty.c main.c 
